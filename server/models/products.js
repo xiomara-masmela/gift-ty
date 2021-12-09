@@ -11,7 +11,7 @@ const ProductsSchema = new Schema({
   price: Number
 });
 
-// Create model for todo
+// Create model for products
 const Products = mongoose.model('products', ProductsSchema);
 
 module.exports = Products;

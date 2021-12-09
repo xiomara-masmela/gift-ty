@@ -4,11 +4,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const products = require('./server/routes/products');
+const categories = require('./server/routes/categories');
+const inputs = require('./server/routes/inputs')
 require('dotenv').config();
 
 const app = express();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
+app.use(express.json());
+app.use(express.static("./client/build"));
+
+
+
 
 // Connect to the database
 mongoose
@@ -16,7 +23,7 @@ mongoose
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
-// Since mongoose's Promise is deprecated, we override it with Node's Promise
+
 mongoose.Promise = global.Promise;
 
 app.use((req, res, next) => {
@@ -25,9 +32,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
 
 app.use('/api', products);
+app.use('/api', categories);
+app.use('/api', inputs);
 
 app.use((err, req, res, next) => {
   console.log(err);
