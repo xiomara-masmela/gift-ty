@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Categories = require('../models/categories')
+const Keywords = require('../models/keywords')
 
-router.get('/categories', (req, res, next) => {
+router.get('/keywords', (req, res, next) => {
   
-  Categories.find()
+  Keywords.find()
     .then((data) => res.json(data))
     .catch(next);
 });
-//Post categories
+//Post keywords
 //Use for role shopOwner only
-router.post('/categories', (req, res, next) => {
+router.post('/keywords', (req, res, next) => {
     console.log(req.body)
     if (req.body) {
-      Categories.create(req.body)
+      Keywords.create(req.body)
         .then((data) => res.json(data))
         .catch(next);
     } else {

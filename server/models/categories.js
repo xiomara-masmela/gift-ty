@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create schema for todo
+
 const CategoriesSchema = new Schema({
   name: String,
   description: String,

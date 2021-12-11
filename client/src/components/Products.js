@@ -1,5 +1,6 @@
 import {React, useEffect, useState} from 'react';
 import axios from 'axios';
+import {Container, Box} from '@mui/material';
 
 
 
@@ -20,16 +21,24 @@ export function Products(){
 
 
     return (
-        <div>
-            {
-                products && products.map((product, index)=> {
-                    <div key={index}> 
-                        {product.name}
-                        
-                    </div>
-                }
-                )
-            }
-        </div>
+        <Container >
+            <h4>Results</h4>
+            <Box sx={{ display: 'flex'}}>
+                    
+                    {
+                        products && products.map((product, index)=> (
+                            <div key={index}> 
+                                <img width="100" src={product.image_url}/>
+                                <h4>{product.name}</h4>
+                                <p>{product.description}</p>
+                                <p>{product.price}</p>
+                                
+                            </div>
+                            )
+                        )
+                    }
+            </Box>
+        </Container>
+        
     )
 }

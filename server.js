@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const products = require('./server/routes/products');
-const categories = require('./server/routes/categories');
+const keywords = require('./server/routes/keywords');
 const inputs = require('./server/routes/inputs')
 require('dotenv').config();
 
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api', products);
-app.use('/api', categories);
+app.use('/api', keywords);
 app.use('/api', inputs);
 
 app.use((err, req, res, next) => {
