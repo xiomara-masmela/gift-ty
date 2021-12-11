@@ -19,20 +19,27 @@ const upload = multer({
 
 
 //Get all the products
-router.get('/products', (req, res, next) => {
-
-  Products.find()
-    .then((data) => res.json(data))
-    .catch(next);
+router.get('/products/:keywords', (req, res, next) => {
+  console.log(req.params.keywords)
+  // "car,bike,boat,ambulance"
+  const keywords = (req.params.keywords ?? '').toLowerCase().split(',').filter(Boolean);
+  console.log(keywords)
+  // todo: get top 10 results?
+  if (keywords.length) {
+    // construct the query to get items with these keywords in db
+    Products.find({ "keywords":{$in:keywords}}).limit(10)
+      .then((data) => {
+        console.log(data)
+        res.json(data)}
+      )
+      .catch(next);
+  } else {
+    Products.find()
+      .then((data) => res.json(data))
+      .catch(next);
+  }
 });
 
-//Get Product By Keywords
-//Query parameters are optional
-router.get('/products/:keyword1?/:keyword2?/:keyword3?/:keyword4?/:keyword5?/:keyword6?/:keyword7?/:keyword8?/', (req, res, next)=> {
-  Products.find({"keywords":{$in:[keyword1, keyword2, keyword3, keyword4, keyword5, keyword6, keyword7]}})
-  .then((data) => res.json(data))
-    .catch(next);
-});
 
 //Post products 
 //Use for role shopOwner only

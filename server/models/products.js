@@ -9,7 +9,7 @@ const ProductsSchema = new Schema({
   SKU: Number,
   category_id: Number,
   price: Number,
-  keywords: String,
+  keywords: Array,
 });
 
 // Create model for products
