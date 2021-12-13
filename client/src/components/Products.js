@@ -4,27 +4,28 @@ import {Container, Box} from '@mui/material';
 
 
 
-export function Products(){
-
+export function Products(props){
+    console.log(props.likes)
+    const likesString = props.likes.toString();
+    console.log(likesString)
+    
     const [products, setProducts] = useState([]);
 
-    useEffect(()=> {
-        axios.get("/api/products")
+    
+        axios.get(`/api/products/${likesString}`)
         .then((response)=>{
             console.log(response.data)
             setProducts(response.data)
         })
         .catch((error)=> console.log(error))
 
-    }, []);
-    
-
+        
 
     return (
         <Container >
-            <h4>Results</h4>
+            
+            <p>Search Results for {likesString}</p>
             <Box sx={{ display: 'flex'}}>
-                    
                     {
                         products && products.map((product, index)=> (
                             <div key={index}> 
@@ -32,6 +33,14 @@ export function Products(){
                                 <h4>{product.name}</h4>
                                 <p>{product.description}</p>
                                 <p>{product.price}</p>
+                                <ul>
+                                    {
+                                       product.keywords && product.keywords.map((keyword, index)=>(
+                                           <li>{keyword}</li>
+                                       )
+                                       )
+                                    }
+                                </ul>
                                 
                             </div>
                             )

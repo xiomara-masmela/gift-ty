@@ -18,6 +18,7 @@ app.use(express.static("./client/build"));
 
 
 // Connect to the database
+const uri = process.env.MONGODB_URI;
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true })
   .then(() => console.log(`Database connected successfully`))
