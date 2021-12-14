@@ -22,11 +22,7 @@ export function InputData(){
    const [colour, setColour] = useState("");
    const [event, setEvent] = useState("");
 
-   function handleAgeChange(event){
-    
-        console.log(event.target.value)
-        setAge(event.target.value);
-   }
+   
 
    function handleColourChange(event){
        console.log(event.target.value)
@@ -76,7 +72,7 @@ export function InputData(){
         <Container maxWidth="sm">
             <Box sx={{m:8}}>
             <FormControl fullWidth  >
-                <TextField id="outlined-basic" label="Age" variant="outlined" value={age} onChange={handleAgeChange} sx={{my:2}}/>
+                
                 <TextField id="outlined-basic" label="colour" variant="outlined" value={colour} onChange={handleColourChange} sx={{my:2}} />
                 <FormLabel component="legend" sx={{my:2}}>Likes</FormLabel >
                 
