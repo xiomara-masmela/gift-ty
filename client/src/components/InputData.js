@@ -17,6 +17,7 @@ export function InputData(){
 
    });
 
+
    const [age, setAge]= useState("");
    const [colour, setColour] = useState("");
    const [event, setEvent] = useState("");
@@ -28,7 +29,6 @@ export function InputData(){
    }
 
    function handleColourChange(event){
-    
        console.log(event.target.value)
        setColour(event.target.value);
    }
@@ -145,7 +145,7 @@ export function InputData(){
             
 
         </ Container>
-        {/* <Products likes={likes} /> */}
+        <Products likes={likes} />
             </>
             
             
