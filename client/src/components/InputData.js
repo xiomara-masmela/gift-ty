@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import { FormLabel, FormControlLabel, Checkbox, FormControl, Container, TextField, FormGroup, Button, Box} from '@mui/material';
+import { FormLabel, FormControlLabel, Checkbox, FormControl, Container, TextField, FormGroup, Button, Box, InputLabel, Select, MenuItem} from '@mui/material';
 import axios from 'axios';
 import {Products} from './Products';
 
@@ -18,14 +18,16 @@ export function InputData(){
    });
 
 
-   const [age, setAge]= useState("");
    const [colour, setColour] = useState("");
    const [event, setEvent] = useState("");
 
-   
+
+   function handleEvent(event){
+        console.log(event.target.value)
+        setEvent(event.target.value);
+   }
 
    function handleColourChange(event){
-       console.log(event.target.value)
        setColour(event.target.value);
    }
 
@@ -44,38 +46,35 @@ export function InputData(){
    const {outdoors, indoors, beauty, fashion, experiences, pets, technology, food} = checked;
 
     const [inputs, setInputs] = useState({});
-   //Send data to db
-
-   let likeString = '';
-   function handleSubmit(event){
-       event.preventDefault();
-       
-       console.log(likes)
-       setInputs({
-           ...inputs,
-           "age": age, "colour": colour, "event": "birthday", "likes": likes
-        });
-       
-       console.log(inputs);
-       
-    //    axios.post('/api/inputs', inputs)
-    //     .then((res)=>{
-    //         console.log(res.data);
-    //     })
-    
 
 
-   }
+
+  
 
     return (
         <>
         <Container maxWidth="sm">
             <Box sx={{m:8}}>
             <FormControl fullWidth  >
-                
                 <TextField id="outlined-basic" label="colour" variant="outlined" value={colour} onChange={handleColourChange} sx={{my:2}} />
-                <FormLabel component="legend" sx={{my:2}}>Likes</FormLabel >
                 
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Event</InputLabel>
+                   <Select
+                        labelId="demo-simple-select-label"
+                        value={event}
+                        label="Event"
+                        onChange={handleEvent}
+                        >
+                   <MenuItem value={"birthday"}>Birthday</MenuItem>
+                   <MenuItem value={"anniversary"}>Anniversary</MenuItem>
+                   <MenuItem value={"holiday"}>Holiday</MenuItem>
+                   <MenuItem value={"baby"}>Baby Shower</MenuItem>
+                   <MenuItem value={"work"}>Work Related</MenuItem>
+                   </Select>
+                </FormControl>
+                
+                <FormLabel component="legend" sx={{my:2}}>Likes</FormLabel >
                 <FormGroup onChange={handleLikesChange}>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
                     
@@ -127,21 +126,15 @@ export function InputData(){
                                 }
                                 label="Food"
                         />
-                       
-
-                
                 </Box> 
                 </FormGroup>
-                <Button onClick={handleSubmit} variant="outlined" sx={{my:2}}>Submit</Button>
-                
-                
             </FormControl>
 
             </Box>
             
 
         </ Container>
-        <Products likes={likes} />
+        <Products likes={likes} event={event} colour={colour} />
             </>
             
             

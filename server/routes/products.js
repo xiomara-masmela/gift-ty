@@ -19,17 +19,23 @@ const upload = multer({
 
 
 //Get all the products
-router.get('/products/:keywords', (req, res, next) => {
-  console.log(req.params.keywords)
+router.get('/products/:keyword/:event/:colour/', (req, res, next) => {
+  
   // "car,bike,boat,ambulance"
   const keywords = (req.params.keywords ?? '').toLowerCase().split(',').filter(Boolean);
-  console.log(keywords)
+  const event = (req.params.event ?? '');
+  const colour = (req.params.colour ?? '');
+  console.log(keywords, event, colour)
   // todo: get top 10 results?
-  if (keywords.length) {
+  if (keywords.length && event && colour) {
     // construct the query to get items with these keywords in db
-    Products.find({ "keywords":{$in:keywords}}).limit(10)
+    Products.find({
+        "keywords": { $in: keywords},
+        "event": event,
+        "colour": colour
+      })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         res.json(data)}
       )
       .catch(next);
