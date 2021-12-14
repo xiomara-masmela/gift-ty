@@ -19,7 +19,7 @@ const upload = multer({
 
 
 //Get all the products
-router.get('/products/:keyword/:event/:colour/', (req, res, next) => {
+router.get('/products/:keywords/:event/:colour', (req, res, next) => {
   
   // "car,bike,boat,ambulance"
   const keywords = (req.params.keywords ?? '').toLowerCase().split(',').filter(Boolean);
@@ -32,7 +32,7 @@ router.get('/products/:keyword/:event/:colour/', (req, res, next) => {
     Products.find({
         "keywords": { $in: keywords},
         "event": event,
-        "colour": colour
+        "colour": colour,
       })
       .then((data) => {
         // console.log(data)

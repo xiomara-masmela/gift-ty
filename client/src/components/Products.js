@@ -27,13 +27,13 @@ export function Products(props){
 
     return (
         <Container >
-            <p>Search Results for {likesString} {event} {colour}</p>
+            <p><span className="bold">Search Results</span> {likesString}, {event},{colour}</p>
             <Box sx={{ display: 'flex', flexWrap:'wrap'}} className="product-container">
                     {
                         products && products.map((product, index)=> (
                             <div key={index} className="single-product"> 
                                 <img width="300" src={product.image_url}/>
-                                <Box sx={{display: 'flex'}}>
+                                <Box sx={{display: 'flex', justifyContent: 'space-between'}} className="product-information">
                                     <h4 >{product.name}</h4>
                                     <p>${product.price}</p>
                                 </Box>

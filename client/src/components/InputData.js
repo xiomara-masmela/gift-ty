@@ -33,22 +33,16 @@ export function InputData(){
 
 
    function handleLikesChange(event){
-    
         setLikes([ ...likes, event.target.name])
         console.log(likes)
         setChecked({
             ...checked,
             [event.target.name]: event.target.checked
         });
-
+        console.log(event.target.name, event.target.checked)
 
    }
    const {outdoors, indoors, beauty, fashion, experiences, pets, technology, food} = checked;
-
-    const [inputs, setInputs] = useState({});
-
-
-
   
 
     return (
@@ -135,7 +129,7 @@ export function InputData(){
 
         </ Container>
         <Products likes={likes} event={event} colour={colour} />
-            </>
+        </>
             
             
             
