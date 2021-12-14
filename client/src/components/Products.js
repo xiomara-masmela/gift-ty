@@ -11,7 +11,7 @@ export function Products(props){
     
     const [products, setProducts] = useState([]);
 
-    
+    useEffect(()=>{
         axios.get(`/api/products/${likesString}`)
         .then((response)=>{
             console.log(response.data)
@@ -19,6 +19,8 @@ export function Products(props){
         })
         .catch((error)=> console.log(error))
 
+    }, [likesString])
+        
         
 
     return (
