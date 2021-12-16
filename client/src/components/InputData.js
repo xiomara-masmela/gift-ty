@@ -41,19 +41,9 @@ export function InputData(){
         if(checked[event.target.name] === false){
                 setLikes([ ...likes, event.target.name])
         }else {
-                console.log(likes.indexOf(event.target.name))
                 likes.splice(likes.indexOf(event.target.name), 1 )
                 setLikes(likes)
         }
-        // if (event.target.checked === true){
-        //         setLikes([ ...likes, event.target.name])
-        // }else {
-        //         //setlikes 
-        //         setLikes([ ...likes, event.target.name])
-        // }
-        // console.log(likes)
-        console.log(checked)
-        console.log(event.target.name)
 
    }
    const {outdoors, indoors, beauty, fashion, experiences, pets, technology, food} = checked;

@@ -29,5 +29,17 @@ ul.cat-list {
   padding: 0;
 
 }
+ul.cat-list > li {
+  margin-right: 10px;
+  text-transform: capitalize;
+}
 
+.box {
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+.box h4 {
+  margin-right: 10px;
+}
 

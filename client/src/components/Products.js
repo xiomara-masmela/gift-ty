@@ -5,21 +5,31 @@ import {Container, Box} from '@mui/material';
 
 
 export function Products(props){
-    console.log(props.likes, props.event, props.colour)
     const event = props.event;
     const colour = props.colour;
     const likesString = props.likes.toString();
-    console.log(likesString)
     
     const [products, setProducts] = useState([]);
 
     useEffect(()=>{
-        axios.get(`/api/products/${likesString}/${event}/${colour}`)
+        const searchParams = new URLSearchParams();
+        searchParams.set('colour', colour);
+        searchParams.set('event', event);
+        searchParams.set('keywords', likesString);
+        
+        console.log(searchParams.toString())
+        axios.get(`/api/products?${searchParams.toString()}`)
         .then((response)=>{
             console.log(response.data)
             setProducts(response.data)
         })
-        .catch((error)=> console.log(error))
+        .catch((error)=> {
+            if(error.response){
+                console.log(error.response)
+            }else {
+                console.log(error)
+            }
+        })
 
     }, [likesString, event, colour])
         
@@ -27,17 +37,17 @@ export function Products(props){
 
     return (
         <Container >
-            <p><span className="bold">Search Results</span> {likesString}, {event},{colour}</p>
+            <p><span className="bold">Search Results</span> {colour} {event} {likesString}</p>
             <Box sx={{ display: 'flex', flexWrap:'wrap'}} className="product-container">
                     {
                         products && products.map((product, index)=> (
                             <div key={index} className="single-product"> 
                                 <img width="300" src={product.image_url} alt={product.name}/>
-                                <Box sx={{display: 'flex', justifyContent: 'space-between'}} className="product-information">
+                                <Box  className="product-information">
                                     <h4 >{product.name}</h4>
                                     <p>${product.price}</p>
                                 </Box>
-                                
+                                <h4>Categories</h4>
                                 <ul className="cat-list">
                                     {
                                        product.keywords && product.keywords.map((keyword, index)=>(
@@ -46,8 +56,13 @@ export function Products(props){
                                        )
                                     }
                                 </ul>
-                                <p>{product.event}</p>
-                                <p>{product.colour}</p>
+                                <div className="box">
+                                    <h4>Event:</h4><p>{product.event}</p>
+                                </div>
+                                <div className="box">
+                                    <h4>Colour</h4><p>{product.colour}</p>
+                                </div>
+                                
                                 
                             </div>
                             )

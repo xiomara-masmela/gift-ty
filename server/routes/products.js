@@ -18,29 +18,31 @@ const upload = multer({
 });
 
 
-//Get all the products
-router.get('/products/:keywords/:event/:colour', (req, res, next) => {
-  
-  const keywords = (req.params.keywords ?? '').toLowerCase().split(',').filter(Boolean);
-  const event = (req.params.event ?? '');
-  const colour = (req.params.colour ?? '');
-  console.log(keywords, event, colour)
+//Get products
+router.get('/products', (req, res, next) => {
+  const reqKeywords = (req.query.keywords ?? '').toLowerCase().split(',').filter(Boolean);
+  const reqEvent = (req.query.event ?? '');
+  const reqColour = (req.query.colour ?? '');
   // todo: get top 10 results?
-  if (keywords.length && event && colour) {
-    console.log("display my search")
+  console.log(reqColour && reqEvent && reqKeywords.length)
+  
+  if(reqColour && reqEvent && reqKeywords.length) {
+    console.log("my search")
     // construct the query to get items with these keywords in db
-    Products.find({
-        keywords: { $in: keywords},
-        event: event,
-        colour: colour,
-      })
+    Products.find({ $and: [
+      {colour: reqColour},
+      {event: reqEvent},
+      {keywords: { $in: reqKeywords}}
+    ]
+        
+      }).limit(10)
       .then((data) => {
         res.json(data)}
       )
       .catch(next);
   } else {
-    console.log("display all")
-    Products.find()
+      console.log("display all")
+      Products.find().limit(10)
       .then((data) => res.json(data))
       .catch(next);
   }
