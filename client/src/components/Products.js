@@ -21,7 +21,7 @@ export function Products(props){
         })
         .catch((error)=> console.log(error))
 
-    }, [likesString])
+    }, [likesString, event, colour])
         
         
 
@@ -32,7 +32,7 @@ export function Products(props){
                     {
                         products && products.map((product, index)=> (
                             <div key={index} className="single-product"> 
-                                <img width="300" src={product.image_url}/>
+                                <img width="300" src={product.image_url} alt={product.name}/>
                                 <Box sx={{display: 'flex', justifyContent: 'space-between'}} className="product-information">
                                     <h4 >{product.name}</h4>
                                     <p>${product.price}</p>

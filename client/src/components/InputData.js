@@ -1,6 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import { FormLabel, FormControlLabel, Checkbox, FormControl, Container, TextField, FormGroup, Button, Box, InputLabel, Select, MenuItem} from '@mui/material';
-import axios from 'axios';
+import { FormLabel, FormControlLabel, Checkbox, FormControl, Container, TextField, FormGroup, Box, InputLabel, Select, MenuItem} from '@mui/material';
 import {Products} from './Products';
 
 export function InputData(){
@@ -33,13 +32,28 @@ export function InputData(){
 
 
    function handleLikesChange(event){
-        setLikes([ ...likes, event.target.name])
-        console.log(likes)
+        
+        
         setChecked({
-            ...checked,
-            [event.target.name]: event.target.checked
+                ...checked,
+                [event.target.name]: event.target.checked
         });
-        console.log(event.target.name, event.target.checked)
+        if(checked[event.target.name] === false){
+                setLikes([ ...likes, event.target.name])
+        }else {
+                console.log(likes.indexOf(event.target.name))
+                likes.splice(likes.indexOf(event.target.name), 1 )
+                setLikes(likes)
+        }
+        // if (event.target.checked === true){
+        //         setLikes([ ...likes, event.target.name])
+        // }else {
+        //         //setlikes 
+        //         setLikes([ ...likes, event.target.name])
+        // }
+        // console.log(likes)
+        console.log(checked)
+        console.log(event.target.name)
 
    }
    const {outdoors, indoors, beauty, fashion, experiences, pets, technology, food} = checked;
@@ -50,12 +64,12 @@ export function InputData(){
         <Container maxWidth="sm">
             <Box sx={{m:8}}>
             <FormControl fullWidth  >
-                <TextField id="outlined-basic" label="colour" variant="outlined" value={colour} onChange={handleColourChange} sx={{my:2}} />
+                <TextField  label="colour" variant="outlined" value={colour} onChange={handleColourChange} sx={{my:2}} />
                 
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Event</InputLabel>
+                  <InputLabel id="event-select">Event</InputLabel>
                    <Select
-                        labelId="demo-simple-select-label"
+                        labelId="event-select"
                         value={event}
                         label="Event"
                         onChange={handleEvent}
@@ -63,60 +77,59 @@ export function InputData(){
                    <MenuItem value={"birthday"}>Birthday</MenuItem>
                    <MenuItem value={"anniversary"}>Anniversary</MenuItem>
                    <MenuItem value={"holiday"}>Holiday</MenuItem>
-                   <MenuItem value={"baby"}>Baby Shower</MenuItem>
                    <MenuItem value={"work"}>Work Related</MenuItem>
                    </Select>
                 </FormControl>
                 
-                <FormLabel component="legend" sx={{my:2}}>Likes</FormLabel >
+                <FormLabel color="secondary" component="legend" sx={{my:2}}>Likes</FormLabel >
                 <FormGroup onChange={handleLikesChange}>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
                     
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={outdoors}  name="outdoors" />
+                                <Checkbox checked={outdoors} color="secondary"  name="outdoors" />
                                 }
                                 label="Outdoors"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={indoors}  name="indoors" />
+                                <Checkbox checked={indoors} color="secondary"  name="indoors" />
                                 }
                                 label="Indoors"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={beauty}  name="beauty" />
+                                <Checkbox checked={beauty} color="secondary"  name="beauty" />
                                 }
                                 label="Beauty"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={fashion}  name="fashion" />
+                                <Checkbox checked={fashion} color="secondary"  name="fashion" />
                                 }
                                 label="Fashion"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={experiences}  name="experiences" />
+                                <Checkbox checked={experiences} color="secondary"  name="experiences" />
                                 }
                                 label="Experiences"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={pets}  name="pets" />
+                                <Checkbox checked={pets} color="secondary"  name="pets" />
                                 }
                                 label="Pets"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={technology}  name="technology" />
+                                <Checkbox checked={technology} color="secondary"  name="technology" />
                                 }
                                 label="Technology"
                         />
                         <FormControlLabel
                                 control={
-                                <Checkbox checked={food}  name="food" />
+                                <Checkbox checked={food} color="secondary" name="food" />
                                 }
                                 label="Food"
                         />
@@ -125,15 +138,8 @@ export function InputData(){
             </FormControl>
 
             </Box>
-            
-
         </ Container>
         <Products likes={likes} event={event} colour={colour} />
         </>
-            
-            
-            
-            
-        
     )
 }
