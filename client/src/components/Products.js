@@ -15,14 +15,15 @@ export function Products(props){
         const searchParams = new URLSearchParams();
         searchParams.set('colour', colour);
         searchParams.set('event', event);
-        searchParams.set('keywords', likesString);
-        
-        console.log(searchParams.toString())
+        searchParams.set('keywords', likesString);  
         axios.get(`/api/products?${searchParams.toString()}`)
         .then((response)=>{
             console.log(response.data)
             setProducts(response.data)
         })
+        
+        
+
         .catch((error)=> {
             if(error.response){
                 console.log(error.response)

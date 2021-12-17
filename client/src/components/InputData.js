@@ -33,7 +33,6 @@ export function InputData(){
 
    function handleLikesChange(event){
         
-        
         setChecked({
                 ...checked,
                 [event.target.name]: event.target.checked
