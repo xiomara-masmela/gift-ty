@@ -19,7 +19,12 @@ export function Products(props){
         axios.get(`/api/products?${searchParams.toString()}`)
         .then((response)=>{
             console.log(response.data)
-            setProducts(response.data)
+            
+            if(response.data.length){
+                setProducts(response.data)
+            }else {
+                setProducts([])
+            }
         })
         
         

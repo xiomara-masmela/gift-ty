@@ -21,7 +21,16 @@ router.get('/products', (req, res, next) => {
       keywords:  {$in:reqKeywords}
       }).limit(10)
       .then((data) => {
-        res.json(data)}
+        console.log(data)
+        
+        
+        if (data.length) {
+          res.json(data)
+        }else {
+          res.json({"error": "product not found"})
+        }
+      
+        }
       )
       .catch(next);
   } else {
