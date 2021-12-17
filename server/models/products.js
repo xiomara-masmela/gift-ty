@@ -10,6 +10,8 @@ const ProductsSchema = new mongoose.Schema({
   category_id: Number,
   price: Number,
   keywords: Array,
+  event: String,
+  colour: String
 });
 
 // Create model for products
